@@ -127,7 +127,7 @@ sub RENEW {(
 )}
 
 sub CHECKIN {(
-    9, 10,
+    '09', 10,
     returns fixed(
                 'ok'            =>  1,
                 'resensitize'   =>  1,
@@ -321,11 +321,13 @@ sub request {
         }
     }
     my $socket = $self->{socket};
+    print STDERR "** SIP2 -> $cmd\n" if $self->{debug};
     $socket->send($cmd."\r");
     my $buf;
     my $result = $socket->recv($buf, 1024);
     die "No reply" if !defined $result;
     die "Ill-formed response" if $buf !~ s/\r\z//;
+    print STDERR "** SIP2 <- $buf\n" if $self->{debug};
     if ($buf =~ s/^$exp//) {
         for ($buf) {
             my %result = ( 'command_identifier' => $exp, $req->(), $opt->() );
