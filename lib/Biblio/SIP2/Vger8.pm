@@ -3,10 +3,11 @@ package Biblio::SIP2::Vger8;
 use strict;
 use warnings;
 
-use vars qw(@ISA);
+use vars qw($VERSION @ISA);
 
 use Biblio::SIP2 qw(returns fixed variable timestamp);
 
+$VERSION = '0.03';
 @ISA = qw(Biblio::SIP2);
 
 sub returns(@);
